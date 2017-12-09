@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 静态作用域和动态作用域
+    var value = 1;
+    function foo() {
+      console.log(value)
+    }
+    function bar() {
+      var value = 2;
+      foo()
+    }
+    bar()
+
+    // bash就是动态作用域，例子在test/scope.bash
+
+    // 思考
+    var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f();
+      }
+      checkscope();
+
+    var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f;
+      }
+      checkscope()();// 都会输出local scope
+      //原因很简单，因为js采用的是词法作用域，函数的作用域基于函数创建的位置
+      
+      // 通俗点说，在程序语言范畴内的闭包是指函数把其的变量作用域也包含在这个函数的作用域内，
+      // 形成一个所谓的“闭包”，这样的话外部的函数就无法去访问内部变量
+      // 需要注意的是：我们常常所说的闭包指的是让外部函数访问到内部的变量，
+      // 也就是说，按照一般的做法，是使内部函数返回一个函数，然后操作其中的变量。
+      // 这样做的话一是可以读取函数内部的变量，二是可以让这些变量的值始终保存在内存中。
+
+  </script>
+</body>
+</html>

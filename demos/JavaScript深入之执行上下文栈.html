@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 顺序执行 写过js的都知道
+
+    // 可执行代码 全局 函数 eval
+
+    // 执行上下文栈 execution context stack --ECS
+    // 思考
+      var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f();
+      }
+      checkscope();
+
+      var scope = "global scope";
+      function checkscope() {
+        var scope = "local scope";
+        function f() {
+          return scope;
+        }
+        return f;
+      }
+      checkscope()();// 都会输出local scope
+
+      // 但是执行顺序是不一样的
+      // 第一段代码
+      // ECStock.push(<checkscope> context)
+      // ECStock.push(<f> context)
+      // ECStock.pop()
+      // ECStock.pop()
+
+      // 第二段代码
+      // ECStock.push(<checkscope> context)
+      // ECStock.pop()
+      // ECStock.push(<f> context)
+      // ECStock.pop()
+  </script>
+</body>
+</html>

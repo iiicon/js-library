@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>执行上下文的变量对象</title>
+</head>
+<body>
+  <script>
+    // 当js执行一段可执行代码的时候executable code 的时候，会创建对应的执行上下文
+    // 对于每个执行上下文，都有三个重要属性 
+        // 变量对象 veriable object VO
+        // 作用域链 scope chain
+        // this
+
+    // 全局对象
+    // 全局上下文中的变量对象就是全局对象
+    // this 指的就是window，是构造函数Object构造函数实例化的一个对象，预定义了一大堆属性和方法，作为全局变量的宿主
+    console.log(this instanceof Object)
+
+    // 函数上下文
+    // 活动对象是在进入函数上下文时刻创建的，他通过函数的arguments属性初始化，arguments的属性值是arguments对象 
+
+    // 执行过程
+    // 1 进入执行上下文
+    // 2 代码执行
+    // 变量对象会包括
+    function foo(a) {
+        var b = 2;
+        function c() { }
+        var d = function () { };
+        b = 3;
+      }
+
+      foo(1);
+
+      // AO = {// 进入执行上下文后，这就是变量对象
+      //     arguments: {
+      //       0: 1,
+      //       length: 1
+      //     },
+      //     a: 1,
+      //     b: undefined,
+      //     c: reference to function c() { },
+      //     d: undefined
+      //   }
+
+      // 到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：
+
+      //  1 全局上下文的变量对象初始化是全局对象
+
+      //  2 函数上下文的变量对象初始化只包括 Arguments 对象
+
+      //  3 在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
+
+      //  4 在代码执行阶段，会再次修改变量对象的属性值
+  </script>
+</body>
+</html>
