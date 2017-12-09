@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 由多个执行上下文的变量对象构成的链表就叫做作用域链
+
+    // 非常清晰的例子
+    function foo() {
+      function bar() {
+      // ...
+      }
+    }
+    // 函数创建时，各自的[[scope]]为 
+    // foo.[[scope]] = [
+    //     globalContext.VO
+    //   ];
+
+    //   bar.[[scope]] = [
+    //     fooContext.AO,
+    //     globalContext.VO
+    //   ];
+    // 当函数激活时，进入函数执行上下文，创建VO/AO后，就会将活动对象添加到作用域链的最前端
+    Scope = [AO].concat([[Scope]]);
+    // 在这个时候呢，作用域就创建发完毕了
+
+
+    // 函数执行上下文中作用域链和变量对象的创建过程
+    var scope = "global scope";
+      function checkscope() {
+        var scope2 = 'local scope';
+        return scope2;
+      }
+      checkscope();
+
+    // 1 checkscope函数被创建，保存作用域到[[scope]] 
+        `
+          checkscope.[[scope]] = [
+            globalContext.VO
+          ]
+        `
+    // 2 执行checkscope函数，创建函数执行上下文，checkscope的执行上下文被压如执行上下文栈
+      `
+       ECStock = [
+         checkscopeContext,
+         globalContext
+       ] 
+      `
+    // 3 函数不会立即执行，开始做准备工作，第一步先复制函数[[scope]]属性创建作用域链
+      `
+        checkScopeContext = [
+          Scope: checkscope.[[scope]]
+        ]
+      `
+    // 4 用arguments创建，并初始化活动对象，加入形参，函数声明，变量声明
+      `
+        checkScopeContext = [
+          AO: {
+            arguments: {
+              length: 0
+            },
+            scope2: undefined
+          },
+        ]
+      `
+    // 5 将活动对象压入作用域链顶端
+    `
+        checkScopeContext = [
+          AO: {
+            arguments: {
+              length: 0
+            },
+            scope2: undefined
+          },
+          Scope: [AO, [[Scope]]]
+        ]
+      `
+      // 6 准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值
+      `
+        checkscopeContext = {
+            AO: {
+                arguments: {
+                    length: 0
+                },
+                scope2: 'local scope'
+            },
+            Scope: [AO, [[Scope]]]
+        }
+      `
+      // 7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出
+      `
+        ECStack = [
+            globalContext
+        ];
+      `
+  </script>
+</body>
+</html>
