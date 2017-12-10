@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  // es5 规范之reference
+  // 包括三个内容  base value, referenced name, strict reference
+  `
+    var foo = 1;
+    var fooReference = {
+      base: EnvironmentRecord,
+      name: 'foo',
+      strict: false
+    }
+  ` 
+  `
+    var foo = {
+        bar: function () {
+            return this;
+        }
+    };
+    
+    foo.bar(); // foo
+
+    // bar对应的Reference是：
+    var BarReference = {
+        base: foo,
+        propertyName: 'bar',
+        strict: false
+    };
+  `
+
+  // 原理还是不是很清楚
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // MDN 对闭包的定义：闭包是指那些能访问自由变量的函数（自由变量就是既不是形参也不是局部变量的变量）
+
+    // 闭包由两部分组成 函数能够访问的自由变量 + 函数
+
+    // 从实践角度：以下函数才算是闭包：
+      // 即使创建它的上下文已经销毁，它仍然存在（比如，内部函数从父函数中返回）
+      // 在代码中引用了自由变量
+
+      // var scope = "global scope";
+      //   function checkscope() {
+      //     var scope = "local scope";
+      //     function f() {
+      //       return scope;
+      //     }
+      //     return f;
+      //   }
+
+      //   var foo = checkscope();
+      //   foo();
+
+      //   `
+      //     进入全局代码，创建全局执行上下文，全局执行上下文压入执行上下文栈
+      //     全局执行上下文初始化
+      //     执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 执行上下文被压入执行上下文栈
+      //     checkscope 执行上下文初始化，创建变量对象、作用域链、this等
+      //     checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出
+      //     执行 f 函数，创建 f 函数执行上下文，f 执行上下文被压入执行上下文栈
+      //     f 执行上下文初始化，创建变量对象、作用域链、this等
+      //     f 函数执行完毕，f 函数上下文从执行上下文栈中弹出
+      //   `
+      //   //当我们了解了具体的执行过程后，我们知道 f 执行上下文维护了一个作用域链：
+      //   `
+      //     fContext: [
+      //       Scope: [
+      //         AO,
+      //         checkscopeContext.AO,
+      //         globalContext.VO
+      //       ]
+      //     ]
+      //   `
+        // 就是因为这个作用域链，f函数依然可以读取到checkscopeContext.AO的值，这说明当f引用了checkscopeContext.AO值的
+        // 时候，虽然checkscopeContext被销毁了，当js依然会让checkscopeContext.AO活在内存中，f函数依然可以通过f函数的作用域
+        // 链找到他，正是因为js做到了这一点，从而实现了闭包的概念
+        var data = [];
+
+          for (var i = 0; i < 3; i++) {
+            data[i] = function () {
+              console.log(i);
+            };
+          }
+
+          data[0]();
+          data[1]();
+          data[2](); // 无聊的面试题
+  </script>
+</body>
+</html>
