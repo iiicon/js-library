@@ -13,6 +13,9 @@ js 编程规范正在进行中...
 6. [JavaScript深入之从ECMAScript的规范解读](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E4%BB%8EECMAScript%E7%9A%84%E8%A7%84%E8%8C%83%E8%A7%A3%E8%AF%BBthis.html)
 7. [JavaScript深入之执行上下文](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87.html)
 8. [JavaScript深入之闭包](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E9%97%AD%E5%8C%85.html)
+9. [avaScript深入之按值传递](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92.html)
+10. [JavaScript深入之call和apply的模拟实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8Bcall%E5%92%8Capply%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0.html)
+11. [JavaScript深入之bind的模拟实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8Bbind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0.html)
 
 ## 编码规范 （code convention）
 
