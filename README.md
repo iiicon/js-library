@@ -19,4 +19,4 @@
 
 ## 编码规范 （code convention）
 
-- [编程风格（来自编写可维护的JavaScript）]()
+- [编程风格（来自编写可维护的JavaScript）](https://github.com/iiicon/js-library/blob/master/documents/code-convention.md)
