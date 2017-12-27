@@ -5,6 +5,7 @@
 - js 编程规范正在进行中...
 
 ## 深入系列目录
+0. [JavaScript深入之内存空间](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4.html)
 1. [javaScript深入之从原型到原型链](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E4%BB%8E%E5%8E%9F%E5%9E%8B%E5%88%B0%E5%8E%9F%E5%9E%8B%E9%93%BE.html)
 2. [JavaScript深入之词法作用域和动态作用域](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%8A%A8%E6%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F.html)
 3. [JavaScript深入之执行上下文栈](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88.html)
@@ -16,6 +17,7 @@
 9. [avaScript深入之按值传递](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92.html)
 10. [JavaScript深入之call和apply的模拟实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8Bcall%E5%92%8Capply%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0.html)
 11. [JavaScript深入之bind的模拟实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8Bbind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0.html)
+
 
 ## 编码规范 （code convention）
 
