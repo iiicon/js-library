@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象之一
+
+    // 模拟 new 的实现
+    // 第一版
+    {
+      function Otaku(name, age) {
+        this.name = name;
+        this.age = age;
+
+        this.habit = 'Games';
+      }
+
+      Otaku.prototype.strength = 60;
+
+      Otaku.prototype.sayYourName = function () {
+        console.log('I am ' + this.name);
+      }
+
+      function objectFactory() {
+        // var obj = Object.create(null) 这样做会导致取不到原型中方法，因为 __proto__ 存在于原型中，不在构造函数中
+        var obj = {}
+        Constructor = [].shift.call(arguments)
+        obj.__proto__ = Constructor.prototype
+        Constructor.apply(obj, arguments)
+        console.log(obj)
+        return obj
+      }
+
+      var obj = objectFactory(Otaku, 'zhangsan', 19)
+      console.log(obj.name, obj.age, obj.habit, obj.sayYourName())
+    }
+
+
+    // 两种情况
+    // 1
+    {
+      function Otaku(name, age) {
+        this.strength = 60;
+        this.age = age;
+
+        return {
+          name: name,
+          habit: 'Games'
+        }
+      }
+
+      var person = new Otaku('Kevin', '18');
+      console.log(person.name, person.habit, person.strength, person.age)
+
+      // 2
+      function Otaku2(name, age) {
+        this.strength = 60;
+        this.age = age;
+
+        return 'handsome boy';
+      }
+
+      var p = new Otaku2('Kevin', '18');
+      console.log(p.name, p.habit, p.strength, p.age)
+    }
+
+    // 所以我们还需要判断返回的值是不是一个对象，如果是一个对象，我们就返回这个对象，如果没有，我们该返回什么就返回什么。
+
+    // 第二版的代码
+    {
+      function objectFactory() {
+
+        var obj = new Object(),
+
+          Constructor = [].shift.call(arguments);
+
+        obj.__proto__ = Constructor.prototype;
+
+        var ret = Constructor.apply(obj, arguments);
+
+        return typeof ret === 'object' ? ret : obj;
+
+      };
+      console.log(objectFactory(function () { }))
+    }
+
+    // 最优版本
+    function objectFactory() {
+      Constructor = [].shift.call(arguments)
+      var instance = Object.create(Constructor.prototype);
+      var temp = Constructor.apply(instance, args);
+
+      return (typeof temp === 'object' && temp !== null) ? temp : instance;
+    }
+
+  </script>
+</body>
+
+</html>
