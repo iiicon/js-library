@@ -105,8 +105,8 @@
         for (var i = 1, len = arguments.length; i < len; i++) {
           args.push('arguments[' + i + ']');
         }
-        console.log('this('+args+')')
-        console.log(eval('this('+args+')'))
+        // console.log('this('+args+')')
+        console.log(eval('context.fn('+args+')'))
         var result = eval('context.fn(' + args + ')');
         delete context.fn
         return result;

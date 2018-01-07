@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 类数组对象 拥有一个 length 属性和若干索引属性的对象
+    {
+      var array = ['name', 'age', 'sex'];
+
+      var arrayLike = {
+        0: 'name',
+        1: 'age',
+        2: 'sex',
+        length: 3
+      }
+
+      console.log(array[0], array.length)
+      console.log(arrayLike[0], arrayLike.length)
+    }
+
+    // 读写 长度 遍历 和数组一样
+    // 但是没有数组那些 api
+    {
+      var arrayLike = { 0: 'name', 1: 'age', 2: 'sex', length: 3 }
+
+      console.log(Array.prototype.join.call(arrayLike, '&'));
+      console.log(Array.prototype.slice.call(arrayLike))
+      console.log(Array.prototype.map.call(array, function (item) {
+        return item.toUpperCase()
+      }))
+    }
+
+    // 类数组转对象
+    {
+      var arrayLike = { 0: 'name', 1: 'age', 2: 'sex', length: 3 }
+
+      // slice
+      // console.log(Array.prototype.slice.call(arrayLike))
+      // splice
+      console.log(Array.prototype.splice.call(arrayLike, 0))
+      // ES6 Array.from
+      // console.log(Array.from(arrayLike))
+      // Array 
+      // console.log(Array.prototype.concat.apply([101010, arrayLike]))
+
+      // let elements = document.getElementsByClassName('box');
+      // Array.prototype.splice.call(elements, 0); // 对于 HTMLCollection，length 属性为只读，splice 底层还是会修改 length 的长度，这才导致了报错
+    }
+    {
+      // arguments 对象
+
+      // length属性
+      function foo(b, c, d) {
+        console.log("实参的长度为：" + arguments.length)
+      }
+      console.log("形参的长度为：" + foo.length)
+      foo(1)
+
+      // callee属性 调用函数本身
+      var data = [];
+
+      for (var i = 0; i < 3; i++) {
+        (data[i] = function () {
+          console.log(arguments.callee.i)
+        }).i = i
+      }
+
+      data[0]();
+      data[1]();
+      data[2]();
+    }
+
+
+  // 传入的参数，实参和 arguments 的值会共享，当没有传入时，实参与 arguments 值不会共享
+  // 除此之外，以上是在非严格模式下，如果是在严格模式下，实参和 arguments 是不会共享的。
+
+    {
+      // 传递参数
+      function foo() {
+        bar.apply(this, arguments);
+      }
+    }
+
+    {
+      // 强大的ES6
+      function func(...arguments) {
+        console.log(arguments); // [1, 2, 3]
+      }
+    }
+    func(1,2,3)
+
+  </script>
+</body>
+
+</html>

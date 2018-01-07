@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    {
+      // 1. 工厂模式
+      // 缺点：对象无法识别，因为所有的实例都指向一个原型
+
+      function createPerson(name) {
+        var o = new Object();
+        o.name = name;
+        o.getName = function () {
+          console.log(this.name);
+        };
+
+        return o;
+      }
+
+      var person1 = createPerson('kevin');
+      console.log(Object.getPrototypeOf(person1).constructor)
+    }
+
+    {
+      // 2. 构造函数模式
+      // 优点：实例可以识别为一个特定的类型
+      // 缺点：每次创建实例时，每个方法都要被创建一次
+
+      function Person(name) {
+        this.name = name;
+        this.getName = function () {
+          console.log(this.name);
+        };
+      }
+      var person1 = new Person('kevin');
+    }
+
+    {
+      // 3. 原型模式
+      // 优点：方法不会重新创建
+      // 缺点：1. 所有的属性和方法都共享 2. 不能初始化参数
+      function Person(name) {
+
+      }
+      Person.prototype.name = "zhangsan"
+      Person.prototype.getName = function () {
+        console.log(this.name)
+      }
+      var person = new Person('lisi')
+      person.getName()
+    }
+    {
+      // 3.1 原型模式优化
+      // 缺点：重写了原型，丢失了constructor属性
+      function Person(name) {
+      }
+      Person.prototype = {
+        name: 'kevin',
+        getName: function () {
+          console.log(this.name);
+        }
+      };
+
+      var person1 = new Person();
+    }
+
+    {
+      // 4. 组合模式
+      // 优点：该共享的共享，该私有的私有，使用最广泛的方式
+      // 缺点：有的人就是希望全部都写在一起，即更好的封装性
+      function Person(name) {
+        this.name = name;
+      }
+      Person.prototype = {
+        constructor: Person,
+        getName: function () {
+          console.log(this.name)
+        }
+      }
+
+      var person = new Person(name)
+    }
+    {
+      // 4.1 动态原型模式
+      function Person(name) {
+        this.name = name;
+        if (typeof this.getName != 'function') {
+          Person.prototype = {
+            constructor: Person,
+            getName: function () {
+              console.log(this.name)
+            }
+          }
+
+          // 再次 new
+          return new Person(name) // 这样就不会出错了
+        }
+      }
+
+      var person = new Person('wangba')
+      // person.getName() // 构造函数的 prototype 属性指向了实例的原型，使用字面量方式直接覆盖 Person.prototype，并不会更改实例的原型的值，person1 依然是指向了以前的原型，而不是 Person.prototype。而之前的原型是没有 getName 方法的，所以就报错了！
+    }
+
+    {
+      // 5.1 寄生构造函数模式
+      // 其实和工厂函数是一样的，只不过是调用函数变成了 new ，一般不建议这样做，
+      function SpecialArray() {
+        var values = new Array();
+
+        for (var i = 0, len = arguments.length; i < len; i++) {
+          values.push(arguments[i]);
+        }
+        // 这里也可以用
+        // values.push.apply(values, arguments) // 推荐用法
+
+        values.toPipedString = function () {
+          return this.join("|");
+        };
+        return values;
+      }
+
+      var colors = new SpecialArray('red', 'blue', 'green');
+      var colors2 = SpecialArray('red2', 'blue2', 'green2');
+
+      console.log(colors);
+      console.log(colors.toPipedString()); // red|blue|green
+
+      console.log(colors2);
+      console.log(colors2.toPipedString()); // red2|blue2|green2
+    }
+    {
+      // 5.2 稳妥构造函数模式 指的是没有公共属性，而且其方法也不引用 this 的对象。
+      // 与寄生构造函数有两点不同，1.新创建的实例方法不引用 this 2.不使用 new 操作符调用构造函数
+      // 稳妥对象最适合在一些安全的环境中。
+      // 稳妥构造函数模式也跟工厂模式一样，无法识别对象所属类型
+      function person(name) {
+        var o = new Object();
+        o.sayName = function () {
+          console.log(name);
+        };
+        return o;
+      }
+
+      var person1 = person('kevin');
+
+      person1.sayName(); // kevin
+
+      person1.name = "daisy";
+
+      person1.sayName(); // kevin
+
+      console.log(person1.name); // daisy
+    }
+  </script>
+</body>
+
+</html>
