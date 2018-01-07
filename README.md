@@ -20,7 +20,7 @@
 12. [JavaScript深入之new的模拟实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8Bnew%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0.html)
 13. [JavaScript深入之类数组对象与arguments](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E4%B8%8Earguments.html)
 14. [JavaScript深入之创建对象的多种模式及优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9.html)
-15. [JavaScript深入之继承的多种方式和优缺点]()
+15. [JavaScript深入之继承的多种方式和优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9.html)
 
 
 ## 编码规范 （code convention）
