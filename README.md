@@ -1,8 +1,9 @@
 # js-library
 
 ## 进度
-- js 深入系列正在进行中...   
+- js 深入系列已经完成   
 - js 编程规范正在进行中...
+- js 专题系列正在进行中...
 
 ## 深入系列目录
 0. [JavaScript深入之内存空间](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4.html)
@@ -26,3 +27,8 @@
 ## 编码规范 （code convention）
 
 - [编程风格（来自编写可维护的JavaScript）](https://github.com/iiicon/js-library/blob/master/documents/code-convention.md)
+
+
+## 专题系列
+
+- [JavaScript专题之防抖]()
