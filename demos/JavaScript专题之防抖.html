@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      background-color: #444;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <button id="cancel"> cancel </button>
+  <script>
+    // 前端开发中总会遇见频繁的触发事件
+    // window 的 resize、scroll
+    // mousedown、mousemove
+    // keyup、keydown
+    // 一般频繁触发会导致卡顿以及一系列的问题
+    // 为了解决这个问题，一般有两种解决方案：
+    // debounce 防抖
+    // throttle 节流
+    {
+      // 防抖的原理
+      // 你尽管触发事件，但是我一定在事件触发 n 秒后才执行，如果你在一个事件触发的 n 秒内又触发了这个事件，
+      // 那我就以新的事件的时间为准，n 秒后才执行，总之，就是要等你触发完事件 n 秒内不再触发事件，我才执行，真是任性呐!
+
+      // 第一版
+      function debounce1(func, wait) {
+        var timeout
+
+        return function () {
+          clearTimeout(timeout)
+          timeout = setTimeout(func, wait)
+        }
+      }
+    }
+
+    {
+      // 第二版
+      // 因为使用 setTimeout this 指向了 window，需要改变 this 指向
+      function debounce2(func, wait) {
+        var timeout
+
+        return function () {
+          var context = this
+
+          clearTimeout(timeout)
+          timeout = setTimeout(function () {
+            func.apply(context)
+          }, wait)
+        }
+      }
+    }
+
+    {
+      // 第三版
+      // 如果此时打印事件对象，会打印出 undefined，this 指向了，但是参数没有指向
+      function debounce3(func, wait) {
+        var timeout
+
+        return function () {
+          var context = this
+          var args = arguments
+
+          clearTimeout(timeout)
+          timeout = setTimeout(function () {
+            func.apply(context, args)
+          }, wait)
+        }
+      }
+    }
+
+    {
+      // 第四版
+      // 我们希望第一次触发的时候函数立即执行
+      function debounce4(func, wait, immediate) {
+        var timeout, result
+
+        return function () {
+          var context = this
+          var args = arguments
+
+          if (timeout) {
+            clearTimeout(timeout)
+          }
+
+          if (immediate) {
+            var callNow = !timeout;
+
+            timeout = setTimeout(function () {
+              timeout = null;
+            }, wait)
+
+            if (callNow) {
+              result = func.apply(context, args)
+            }
+
+          } else {
+            timeout = setTimeout(function () {
+              func.apply(context, args)
+            }, wait)
+          }
+
+          return result
+        }
+      }
+    }
+
+    {
+      // 第五版
+      // 我们希望有一个按钮能够取消防抖
+      function debounceX(func, wait, immediate) {
+        var timeout, result
+
+        var debounced = function () {
+          var context = this
+          var args = arguments
+
+          if (timeout) {
+            clearTimeout(timeout)
+          }
+
+          if (immediate) {
+            var callNow = !timeout;
+
+            timeout = setTimeout(function () {
+              timeout = null;
+            }, wait)
+
+            if (callNow) {
+              result = func.apply(context, args)
+            }
+
+          } else {
+            timeout = setTimeout(function () {
+              func.apply(context, args)
+            }, wait)
+          }
+
+          return result
+        }
+
+        debounced.cancel = function () {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+
+        return debounced
+      }
+    }
+  </script>
+</body>
+<script>
+  var count = 1
+  var container = document.getElementById('container')
+
+  function getUserAction(e) {
+    console.log(this)
+    console.log(e)
+    container.innerHTML = count++
+  }
+
+  // container.onmousemove = debounce(getUserAction, 200)
+  var setUserAction = debounceX(getUserAction, 5000, true)
+  container.onmousemove = setUserAction
+  document.getElementById('cancel').addEventListener('click', function() {
+    setUserAction.cancel()
+  }) 
+</script>
+</html>
