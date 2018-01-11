@@ -32,3 +32,5 @@
 ## 专题系列
 
 - [JavaScript专题之防抖](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E9%98%B2%E6%8A%96.html)
+- [JavaScript专题之节流](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E8%8A%82%E6%B5%81.html)
+- [JavaScript专题之数组去重](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D.js)
