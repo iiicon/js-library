@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 类型判断在 web 开发中有着广泛的应用，简单的有判断是字符串还是数字的，进阶一点的有判断是数组还是对象的，再进阶一点的有判断日期，正则，错误类型，再进阶一点点还有plainObject window， 空对象等
+    {
+      // typeof 一元操作符
+      // 放在其单个操作数的前面，操作数可以是任意类型。返回值为表示操作数类型的一个字符串
+
+      // 6 种基本类型
+      // undefined, null, string, number, boolean, Object
+
+      // typeof 可以检测出 function， 其他就不行了， 比如 error Date Regexp
+
+      function a() { }
+      console.log(typeof a); // function
+
+    }
+
+    {
+      // Object.prototype.toString
+
+      // 首先说一下 toString 
+      // 当 toString 方法被调用的时候，下面的步骤会被执行
+      // 1 如果 this 值是 undefined，就返回 [object undefined]
+      // 2 如果 this 值是 null，就返回 [object null]
+      // 3 让 O 成为 ToObject(this) 的结果
+      // 4 让 class 成为 O 的内部属性[[Class]] 的值
+      // 5 最后返回由 "[object " 和 class 和 "]" 三个部分组成的字符串
+
+      console.log(Object.prototype.toString.call(undefined))
+      console.log(Object.prototype.toString.call(null))
+
+      var date = new Date()
+      console.log(Object.prototype.toString.call(date))
+
+      var number = 1;
+      var string = '123';
+      var boolean = true;
+      var und = undefined;
+      var nul = null;
+      var obj = { a: 1 }
+      var array = [1, 2, 3];
+      var date = new Date();
+      var error = new Error();
+      var reg = /a/g;
+      var func = function a() { };
+
+      function checkType() {
+        for (var i = 0; i < arguments.length; i++) {
+          console.log(Object.prototype.toString.call(arguments[i]))
+        }
+      }
+
+      // checkType(number, string, boolean, und, nul, obj, array, date, error, reg, func)
+
+      console.log(Object.prototype.toString.call(Math))
+      console.log(Object.prototype.toString.call(JSON))
+
+      function a() {
+        console.log(Object.prototype.toString.call(arguments))
+      }
+      a()
+    }
+
+    {
+      // type API
+      var class2type = {}
+
+      "Boolean Number String Function Array Date RegExp Object Error".split(" ").map(function (item, index) {
+        class2type["[object " + item + "]"] = item.toLowerCase()
+      })
+
+      function type(obj) {
+        if (obj == null) {
+          return obj + "";
+        }
+        return typeof obj === 'Object' || typeof obj === 'function' ? class2type[Object.prototype.toString.call(obj)] || "object" :
+          typeof obj;
+      }
+
+      // 有了 type 函数之后， 我们对常用的进行封装
+      // isFunction
+      function isFunction(obj) {
+        return type(obj) === 'function'
+      }
+
+      // isArray
+      function isArr(obj) {
+        return obj.isArray || type(obj) === "array"
+      }
+
+      // jQuery 判断数组类型，旧版本是通过判断 Array.isArray 方法是否存在，如果存在就使用该方法，不存在就使用 type 函数
+      // jQuery 3.0 已经都是 Array.isArray
+      var isArray = Array.isArray || function (obj) {
+        return type(obj) === "array";
+      }
+      console.log(isArray([1, 2, 3, 4, 5]))
+    }
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+  <script>
+    function Person(name) {
+      this.name = name
+    }
+    console.log($.isPlainObject({}))
+    console.log($.isPlainObject(new Object))
+    console.log($.isPlainObject(Object.create(null)))
+    console.log($.isPlainObject(Object.assign({ a: 1, b: 2 })))
+    console.log($.isPlainObject(new Person('sb')))
+    console.log($.isPlainObject(Object.create({})))
+    {
+      // EmptyObject
+      function isEmptyObject(obj) {
+
+        var name;
+
+        for (name in obj) {
+          return false;
+        }
+
+        return true;
+      }
+
+      console.log(isEmptyObject({})); // true
+      console.log(isEmptyObject([])); // true
+      console.log(isEmptyObject(null)); // true
+      console.log(isEmptyObject(undefined)); // true
+      console.log(isEmptyObject(1)); // true
+      console.log(isEmptyObject('')); // true
+      console.log(isEmptyObject(true)); // true
+
+      // 上面都可以返回，但是用的时候主要用来区分{q:1}和{}
+    }
+
+    {
+      // window 对象
+      function isWindow(obj) {
+        return obj != null && obj === obj.window
+      }
+    }
+
+    {
+      // isArrayLike
+      function isArrayLike(obj) {
+
+        // obj 必须有 length属性
+        var length = !!obj && "length" in obj && obj.length;
+        var typeRes = type(obj);
+
+        // 排除掉函数和 Window 对象
+        if (typeRes === "function" || isWindow(obj)) {
+          return false;
+        }
+
+        return typeRes === "array" || length === 0 ||
+          typeof length === "number" && length > 0 && (length - 1) in obj;
+      }
+    }
+
+
+    {
+      // isElement 
+      isElement = function (obj) {
+        return !!(obj && obj.nodeType === 1);
+      };
+    }
+
+    {
+      
+    }
+  </script>
+</body>
+
+</html>
