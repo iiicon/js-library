@@ -34,3 +34,4 @@
 - [JavaScript专题之防抖](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E9%98%B2%E6%8A%96.html)
 - [JavaScript专题之节流](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E8%8A%82%E6%B5%81.html)
 - [JavaScript专题之数组去重](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D.js)
+- [JavaScript深入之类型判断](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD.html)
