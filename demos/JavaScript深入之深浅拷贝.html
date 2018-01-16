@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+<script>
+  // 拷贝也是深浅拷贝
+  {
+    // 数组的浅拷贝
+    var arr = ['old', 1, true, null, undefined];
+    var new_arr = arr.concat()
+    // var new_arr = arr.slice() // slice 可以这样做
+    new_arr[0] = 'new'
+
+    console.log(arr, new_arr)
+
+    // 但是如果数组内嵌了对象和数组的话，
+    var arr1 = [{ old: 'old' }, ['old']];
+    var new_arr1 = arr1.concat();
+
+    new_arr1[0].old = 'new'
+    arr1[1][0] = 'new'
+
+    console.log(arr1, new_arr1)
+
+    // 可以看出来，无论是新数组还是老数组，concat 复制的并不彻底，如果元素是基本元素就是拷贝值，如果元素是对象就拷贝引用，所有 concat 和 slice 是一种浅拷贝
+  }
+
+  {
+    // 数组的深拷贝
+
+    // 有一种简单粗暴的做法，但是这种做法不能拷贝函数
+    var arr = ['old', 1, true, ['old1', 'old2'], { old: 1 }]
+    var new_arr = JSON.parse(JSON.stringify(arr))
+
+    console.log(new_arr)
+
+    var arr2 = [function () {
+      console.log(a)
+    }, {
+      b: function () {
+        console.log(b)
+      }
+    }]
+
+    console.log(JSON.parse(JSON.stringify(arr2)))
+  }
+
+
+  // 接下来的时间就自己想办法实现深浅拷贝
+
+  {
+    var shallowCopy = function (obj) {
+      if (typeof obj !== 'object') {
+        return
+      }
+      var newObj = obj instanceof Array ? [] : {}
+
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = obj[key]
+        }
+      }
+
+      return newObj
+    }
+  }
+
+  console.log(shallowCopy([1, 2, 3]))
+
+  {
+    var deepCopy = function (obj) {
+      if (typeof obj !== 'object') {
+        return
+      }
+      var newObj = obj instanceof Array ? [] : {}
+
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key]
+        }
+      }
+
+      return newObj
+    }
+  }
+
+  {
+    // 关于 JSON.stringify 的一些知识
+    // 所有 安全的 JSON 值 （JSON - safe）都可以使用 JSON.stringify(..) 字符串化。 安全的 JSON 值是指能够呈现为有效 JSON 格式的值。
+    // 为了简单起见， 我们来看看什么是 不安全的 JSON 值 。 undefined 、 function 、 symbol （ES6 +）
+    // 和包含循环引用（对象之间相互引用，形成一个无限循环）的 对象 都不符合 JSON 结构标准，支持 JSON 的语言无法处理它们。
+    // JSON.stringify(..) 在对象中遇到 undefined 、 function 和 symbol 时会自动将其忽略， 在 数组中则会返回 null （以保证单元位置不变）
+    console.log(JSON.stringify(undefined))
+    console.log(JSON.stringify(function () { }))
+    console.log(JSON.stringify([1, undefined, function () { }, 4] ))
+    console.log(JSON.stringify({a:2, b:function(){}}))
+  }
+</script>
+
+</html>
