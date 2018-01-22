@@ -39,3 +39,4 @@
 - [JavaScript深入之深浅拷贝](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.html)
 - [JavaScript专题之从零实现jQuery的extend](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E4%BB%8E%E9%9B%B6%E5%AE%9E%E7%8E%B0jQuery%E7%9A%84extend.html)
 - [JavaScript专题之如何求数组的最大值和最小值](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B1%82%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E5%80%BC.html)
+- [JavaScript专题之数组扁平化 JavaScript专题之数组扁平化](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96.html)
