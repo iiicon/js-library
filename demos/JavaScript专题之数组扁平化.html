@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 数组扁平化就是把多维嵌套数组变成只有一层的数组
+    {
+      // 我们一开始想到的肯定是循环遍历
+      var arr = [1, 2, [3, 4]]
+
+      function flatten(arr) {
+        var result = []
+        for (let i = 0; i < arr.length; i++) {
+          if (Array.isArray(arr[i])) {
+            result = result.concat(flatten(arr[i]))
+          } else {
+            result.push(arr[i])
+          }
+        }
+
+        return result
+      }
+
+      console.log(flatten(arr))
+    }
+
+    {
+      // 2
+      // 如果数组的元素都是数字，那么我们可以考虑使用 toString 方法
+      var arr = [1, [2, [3, 4]]]
+
+      function flatten(arr) {
+        return arr.toString().split(',').map(item => {
+          return +item
+        })
+      }
+      console.log(flatten(arr))
+
+      // 然而这种方法使用的场景却非常有限，如果数组是[1, '1', 2, '2'] 的话，这种方法就会产生错误的结果
+    }
+
+    {
+      // 3
+      // 可以用reduce简化代码，因为最终返回一个值
+      var arr = [1, [2, [3, 4]]]
+      function flatten(arr) {
+        return arr.reduce(function (prev, next) {
+          return prev.concat(Array.isArray(next) ? flatten(next) : next)
+        }, [])
+      }
+      console.log(flatten(arr))
+    }
+
+    {
+      var arr = [1, [2, [3, 4]]]
+      function flatten(arr) {
+        while (arr.some(item => Array.isArray(item))) {
+          arr = [].concat(...arr)
+        }
+        return arr
+      }
+      console.log(flatten(arr))
+    }
+
+    {
+      // underscore 源码
+      /**
+     * 数组扁平化
+     * @param  {Array} input   要处理的数组
+     * @param  {boolean} shallow 是否只扁平一层
+     * @param  {boolean} strict  是否严格处理元素，下面有解释
+     * @param  {Array} output  这是为了方便递归而传递的参数
+     * 源码地址：https://github.com/jashkenas/underscore/blob/master/underscore.js#L528
+     */
+      function flatten(input, shallow, strict, output) {
+
+        // 递归使用的时候会用到output
+        output = output || [];
+        var idx = output.length;
+
+        for (var i = 0, len = input.length; i < len; i++) {
+
+          var value = input[i];
+          // 如果是数组，就进行处理
+          if (Array.isArray(value)) {
+            // 如果是只扁平一层，遍历该数组，依此填入 output
+            if (shallow) {
+              var j = 0, len = value.length;
+              while (j < len) output[idx++] = value[j++];
+            }
+            // 如果是全部扁平就递归，传入已经处理的 output，递归中接着处理 output
+            else {
+              flatten(value, shallow, strict, output);
+              idx = output.length;
+            }
+          }
+          // 不是数组，根据 strict 的值判断是跳过不处理还是放入 output
+          else if (!strict) {
+            output[idx++] = value;
+          }
+        }
+
+        return output;
+
+      }
+      var arr = [1, 2, [3, 4]];
+      console.log(flatten(arr, true, true));
+      /*那么设置 strict 到底有什么用呢？不急，我们先看下 shallow 和 strct 各种值对应的结果：
+
+          shallow true + strict false ：正常扁平一层
+          shallow false + strict false ：正常扁平所有层
+          shallow true + strict true ：去掉非数组元素
+          shallow false + strict true ： 返回一个[]*/
+
+      // difference
+      // 效果是取出来自 array 数组，并且不存在于多个 other 数组的元素。跟 _.union 一样，都会排除掉不是数组的元素
+      function difference(array, ...rest) {
+
+        rest = flatten(rest, true, true);
+
+        return array.filter(function (item) {
+          return rest.indexOf(item) === -1;
+        })
+      }
+
+      console.log(difference(arr, [3, 2]))
+    }
+  </script>
+</body>
+
+</html>
