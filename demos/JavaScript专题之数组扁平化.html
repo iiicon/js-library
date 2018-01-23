@@ -110,14 +110,14 @@
         return output;
 
       }
-      var arr = [1, 2, [3, 4]];
+      var arr = [1, 2, [3, 4],[4, 5]];
       console.log(flatten(arr, true, true));
-      /*那么设置 strict 到底有什么用呢？不急，我们先看下 shallow 和 strct 各种值对应的结果：
+      /* 那么设置 strict 到底有什么用呢？不急，我们先看下 shallow 和 strct 各种值对应的结果：
 
           shallow true + strict false ：正常扁平一层
           shallow false + strict false ：正常扁平所有层
           shallow true + strict true ：去掉非数组元素
-          shallow false + strict true ： 返回一个[]*/
+          shallow false + strict true ： 返回一个[] */
 
       // difference
       // 效果是取出来自 array 数组，并且不存在于多个 other 数组的元素。跟 _.union 一样，都会排除掉不是数组的元素
@@ -130,7 +130,7 @@
         })
       }
 
-      console.log(difference(arr, [3, 2]))
+      console.log(difference(arr, [4, 2]))
     }
   </script>
 </body>
