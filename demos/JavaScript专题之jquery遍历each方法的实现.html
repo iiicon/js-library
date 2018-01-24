@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- jquery each 可以用来遍历数组和对象 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+
+  <script>
+    // 语法为 jQuery.each(object[, callback])
+    $.each([0, 1, 2], function (i, n) {
+      console.log(`${i} is ${n}`)
+    })
+    $.each({ name: "John", lang: "JS" }, function (i, n) {
+      console.log(`${i} is ${n}`)
+    })
+
+    {
+      // 退出循环
+      [1, 2, 3, 4, 5].forEach(function (item, index) {
+        if (index > 2) {
+          return
+        }
+        console.log(item)
+      })
+    }
+
+    {
+      // 第一版
+      function each(obj, cb) {
+        var length, i = 0
+
+        if (_.isArrayLike(obj)) {
+          for (; i < obj.length; i++) {
+            cb(i, obj[i], obj)
+          }
+        } else {
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              cb(key, obj[key], obj)
+            }
+          }
+        }
+
+        return obj
+      }
+
+      each({ name: "John", lang: "JS" }, function (i, obj) {
+        console.log(i, obj)
+      })
+    }
+
+    {
+      // 拥有 break 功能
+
+      // 第二版
+      function each(obj, cb) {
+        var length, i = 0
+
+        if (_.isArrayLike(obj)) {
+          for (; i < obj.length; i++) {
+            // if (cb(i, obj[i]) === false) {
+            //   break;
+            // }
+            if (cb.call(obj[i], i, obj[i]) === false) { // 绑定 this 就可以用用 this 代表 item
+              break;
+            }
+          }
+        } else {
+          for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              // if (cb(i, obj[i]) === false) {
+              //   break;
+              // }
+              if (cb.call(obj[i], i, obj[i]) === false) { // 绑定 this 就可以用用 this 代表 item
+                break;
+              }
+            }
+          }
+        }
+
+        return obj
+      }
+
+      each({ name: "John", lang: "JS" }, function (i, obj) {
+        console.log(i, obj)
+      })
+    }
+    {
+      // 很关键
+      // 但是因为 $("p").each() 方法是定义在 jQuery 函数的 prototype 对象上面的，而 $.each()方法是定义 jQuery 函数上面的，
+      // 调用的时候不从复杂的 jQuery 对象上调用，速度快得多。所以我们推荐使用第一种写法。
+
+      $("p").each(function () {
+        $(this).hover(function () { console.log('hover') });
+      })
+      // 因为将 this 指向了当前 DOM 元素，我们才能使用 $(this)将当前 DOM 元素包装成 jQuery 对象，优雅的使用 hover 方法。
+
+      function each(obj, callback) {
+        var length, i = 0;
+
+        if (isArrayLike(obj)) {
+          length = obj.length;
+          for (; i < length; i++) {
+            if (cb.call(obj[i], i, obj[i]) === false) {
+              break;
+            }
+          }
+        } else {
+          for (i in obj) {
+            if (cb.call(obj[i], i, obj[i]) === false) {
+              break;
+            }
+          }
+        }
+
+        return obj;
+      }
+    }
+
+    {
+      // 性能比较
+      var arr = Array.from({ length: 1000000 }, (v, i) => i);
+
+      console.time('for')
+      var i = 0;
+      for (; i < arr.length; i++) {
+        i += arr[i];
+      }
+      console.timeEnd('for')
+
+      console.time('each')
+      var j = 0;
+
+      $.each(arr, function (index, item) {
+        j += item;
+      })
+      console.timeEnd('each')
+
+      // 举一个例子看 each
+      function each(obj, cb) {
+        var i = 0, length = obj.length
+
+        for (; i < length; i++) {
+          cb(i, obj[i])
+        }
+      }
+
+      function eachWithCall(obj, cb) {
+        var i = 0; length = obj.length
+
+        for (; i < length; i++) {
+          cb.call(obj[i], i, obj[i])
+        }
+      }
+
+      var arr = Array.from({ length: 1000000 }, (v, i) => i);
+
+      console.time('each')
+      each(arr, function (index, item) {
+        index += item
+      })
+      console.timeEnd('each')
+
+      console.time('eachWithCall')
+      eachWithCall(arr, function (index, item) {
+        index += item
+      })
+      console.timeEnd('eachWithCall')
+
+      // 可以看出来，性能损耗主要是 call 指向 this 导致的，但是因为 call 的存在，我们才能将 this 指向循环中当前的元素
+      
+    }
+  </script>
+</body>
+
+</html>

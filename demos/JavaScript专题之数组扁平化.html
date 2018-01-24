@@ -122,6 +122,9 @@
       // difference
       // 效果是取出来自 array 数组，并且不存在于多个 other 数组的元素。跟 _.union 一样，都会排除掉不是数组的元素
       function difference(array, ...rest) {
+        console.log('11111111111111111')
+        console.log(...rest)
+        console.log(typeof rest)
 
         rest = flatten(rest, true, true);
 
@@ -130,7 +133,15 @@
         })
       }
 
-      console.log(difference(arr, [4, 2]))
+      difference(arr, [4, 2])
+      // console.log(difference(arr, [4, 2]))
+    }
+
+    {
+      function arg(...arr) {
+        console.log(arr)
+      }
+      arg([1,2,3])
     }
   </script>
 </body>
