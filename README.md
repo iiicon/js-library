@@ -41,3 +41,4 @@
 - [JavaScript专题之如何求数组的最大值和最小值](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B1%82%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E5%80%BC.html)
 - [JavaScript专题之数组扁平化](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96.html)
 - [JavaScript专题之数组中查找元素](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0.html)
+- [JavaScript专题之jquery遍历each方法的实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8Bjquery%E9%81%8D%E5%8E%86each%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0.html)
