@@ -127,6 +127,7 @@
 
     {
       // 性能比较
+      // 关于 Array.from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
       var arr = Array.from({ length: 1000000 }, (v, i) => i);
 
       console.time('for')

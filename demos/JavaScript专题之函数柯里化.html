@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 函数柯里化就是就是将一个使用多个参数的函数转换成使用一个参数的多个函数的技术
+    // {
+    //   // 先了解用途
+    //   function ajax(type, url, data) {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open(type, url, true);
+    //     xhr.send(data);
+    //   }
+
+    //   // 虽然 ajax 这个函数非常通用，但在重复调用的时候参数冗余
+    //   ajax('POST', 'www.test.com', "name=kevin")
+    //   ajax('POST', 'www.test2.com', "name=kevin")
+    //   ajax('POST', 'www.test3.com', "name=kevin")
+
+    //   // 利用 curring
+    //   var ajaxCurry = curry(ajax)
+
+    //   // 以 post 类型请求数据
+    //   var post = ajaxCurry('POST');
+    //   post('www.test.com', "name=kevin");
+
+    //   // 以 POST 类型请求来自于 www.test.com 的数据
+    //   var postFromTest = post('www.test.com');
+    //   postFromTest("name=kevin");
+
+
+    //   // 感觉还是不太明显
+    //   // 如果我们仅仅是把参数一个一个传进去，意义可能不大，但是如果我们是把柯里化后的函数传给其他函数比如 map 呢？
+    //   var person = [{ name: 'kevin' }, { name: 'daisy' }]
+
+    //   // 我们要获取到所有的 name 值
+    //   var name = person.map(function (item) {
+    //     return item.nam
+    //   })
+
+    //   // 如果用curry
+    //   var prop = curry(function (key, obj) {
+    //     return obj[key]
+    //   })
+
+    //   var name = person.map(prop('name'))
+
+    //   // 这样确实麻烦了一些， 但是代码却更清晰了， 而且封装的prop可以多次使用
+    // }
+
+    {
+      // 第一版
+      var curry = function (fn) {
+        console.log(arguments)
+        var ars = [].slice.call(arguments, 1)
+        return function () {
+          console.log(arguments)
+          var arg = ars.concat([].slice.call(arguments))
+          return fn.apply(this, arg)
+        }
+      }
+
+      function add(a, b) {
+        return a + b;
+      }
+
+      // var addCurry = curry(add, 1, 2);
+
+      // var addCurry = curry(add, 1)
+
+      var addCurry = curry(add)
+
+      var test = addCurry(1, 2)
+
+      console.log(test)
+
+      // 通过这种方式就可以分开写函数，这种方式也许叫做高阶函数
+    }
+
+    {
+      // 第二版
+      function sub_curry(fn) {
+        var args = [].slice.call(arguments, 1)
+
+        return function () {
+          var new_args = args.concat([].slice.call(arguments))
+          return fn.apply(this, new_args)
+        }
+      }
+
+      function curry(fn, length) {
+        length = length || fn.length
+        var slice = Array.prototype.slice;
+
+        return function () {
+          if (arguments.length < length) {
+            var combined = [fn].concat(slice.call(arguments))
+            return curry(sub_curry.apply(this, combined), length - arguments.length)
+          } else {
+            return fn.apply(this, arguments)
+          }
+        }
+      }
+
+      // 验证一下这个函数
+      var fn = curry(function (a, b, c) {
+        return [a, b, c];
+      });
+
+      // console.log(fn(1, 2, 3))
+      // console.log(fn(1, 2)(3))
+      console.log(fn(1)(2)(3))
+    }
+
+    {
+      // 简单版的 curry 函数， 用来理解，逻辑有点差呀
+      function sub_curry(fn) {
+        return function () {
+          return fn()
+        }
+      }
+
+      function curry(fn, length) {
+        length = length || 4;
+        return function () {
+          if (length > 1) {
+            return curry(sub_curry(fn), --length)
+          }
+          else {
+            return fn()
+          }
+        }
+      }
+      var fn0 = function () {
+        console.log(1)
+      }
+      var fn1 = curry(fn0)
+
+      // 当执行fn1()时  3
+      // 是 
+      curry(sub_curry(fn0))
+      // 就是
+      curry(function () {
+        return fn0()
+      })
+
+      // 当执行 fn1()() 时 2
+      curry(sub_curry(function () {
+        return fn0()
+      }))
+      // 就是
+      curry(function () {
+        return (function () {
+          return fn0()
+        })()
+      })
+      //就是
+      curry(function () {
+        return fn0()
+      })
+
+        // 当执行 fn1()()() 时 1
+        // 直接 fn()
+        (function () {
+          return fn0()
+        })()
+      // 就是
+      fn0()
+    }
+    {
+      function sub_curry(fn) {
+        var args = [].slice.call(arguments)
+        return function () {
+          return fn.apply(this, [].slice.call(arguments))
+        }
+      }
+      // 第二版
+      function curry(fn, length) {
+        length = length || fn.length
+
+        return function () {
+          if (arguments.length > length) {
+            var combined = [fn].concat([].slice.call(arguments))
+            return curry(sub_curry(this, combined), length - arguments.length)
+          } else {
+            return fn.apply(this, arguments)
+          }
+        }
+      }
+    }
+
+    {
+      // 第三版
+      function curry(fn, args = []) {
+        console.log(fn.length)
+        var length = fn.length
+        var _args = args.slice(0)
+
+        return function () {
+          _args = _args.concat([].slice.call(arguments))
+          if (_args.length < length) {
+            return curry.call(this, fn, _args)
+          } else {
+            return fn.apply(this, _args)
+          }
+        }
+      }
+      function curryX(fn, args) {
+        var length = fn.length;
+        args = args || [];
+
+        return function () {
+          var _args = args.slice(0),
+            arg, i;
+          for (i = 0; i < arguments.length; i++) {
+            arg = arguments[i];
+            _args.push(arg);
+          }
+          if (_args.length < length) {
+            return curry.call(this, fn, _args);
+          }
+          else {
+            return fn.apply(this, _args);
+          }
+        }
+      }
+
+      var fn1 = curry(function (a, b, c) {
+        console.log([a, b, c])
+      })
+      fn1(1)(2)(3)
+    }
+
+    {
+      // 第四版
+    }
+
+
+  </script>
+</body>
+
+</html>
