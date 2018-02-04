@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 需求：写一个函数，这个函数返回首次调用时的 Date 对象
+
+    {
+      // 1 普通办法
+      var t;
+      function foo() {
+        if (t) return t;
+        t = new Date()
+        return t;
+      }
+
+    }
+    {
+      // 2 闭包 局部作用域 避免污染全局作用域
+      (function () {
+        var t
+        function foo() {
+          if (t) {
+            return t
+          }
+          t = new Date()
+          return t
+        }
+      }) // 然而还是要每次调用都判断
+    }
+
+    {
+      // 3 或者是保存在函数的属性上
+      function foo() {
+        return foo.t ? foo.t : new Date()
+      } // 但是还是每次调用都会判断
+    }
+
+    {
+      // 4 惰性函数，解决每次都会调用的问题，解决的原理很简单，重写函数
+      function foo() {
+        var t = new Date()
+        foo = function () {
+          return t
+        }
+        return foo()
+      }
+      foo()
+      foo() // 可以看出来时间是一样的
+    }
+
+    {
+      // 接下来写一个例子
+      // 利用浏览器嗅探技术判断是支持什么样的事件
+      var addEvent = function (el, type, handler) {
+        if (window.addEventListener) {
+          return el.addEventListener(type, handler, false)
+        } else if (window.attachEvent) {
+          return el.attachEvent('on' + type, handler)
+        }
+      }
+
+      // 利用闭包立即执行，并根据浏览器的不同返回不同的函数
+      var addEvent = (function (el, type, handler) {
+        if (window.addEventListener) {
+          return function () {
+            return el.addEventListener(type, handler, false)
+          }
+        } else if (window.attachEvent) {
+          return function () {
+            return el.attachEvent('on' + type, handler)
+          }
+        }
+      })()
+
+      // 如果利用惰性函数呢，在内部重写 addEvent 函数, 就可以返回固定的函数了
+      var addEvent = function (el, type, handler) {
+        addEvent = function () {
+          if (window.addEventListener) {
+            return function () {
+              return el.addEventListener(type, handler, false)
+            }
+          } else if (window.attachEvent) {
+            return function () {
+              return el.attachEvent('on' + type, handler)
+            }
+          }
+        }
+        addEvent()
+      }
+    }
+  </script>
+</body>
+
+</html>
