@@ -42,6 +42,15 @@
 - [JavaScript专题之数组扁平化](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96.html)
 - [JavaScript专题之数组中查找元素](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0.html)
 - [JavaScript专题之jquery遍历each方法的实现](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8Bjquery%E9%81%8D%E5%8E%86each%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0.html)
+- [avaScript专题之如何判断两个对象相等](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%A4%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9B%B8%E7%AD%89.html)
+- [JavaScript专题之函数柯里化](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96.html)
+- [JavaScript专题之偏函数](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B8%93%E9%A2%98%E4%B9%8B%E5%81%8F%E5%87%BD%E6%95%B0.html)
+- [JavaScript专题之惰性函数](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B9%8B%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0.html)
+- [JavaScript专题之函数组合](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B9%8B%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88.html)
+- [JavaScript专题之函数记忆](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B9%8B%E5%87%BD%E6%95%B0%E8%AE%B0%E5%BF%86.html)
+- [JavaScript专题之拖拽](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8B%96%E6%8B%BD.html)
+- []()
+- []()
 
 ## JS-API
 
