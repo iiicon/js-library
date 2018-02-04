@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 函数记忆是将上次的计算结果缓存起来，当下次调用时遇到相同的参数就直接返回缓存的数据 -->
+  <script>
+
+    // 原理：实现这样一个 memoize 函数很简单，原理上只用把参数和对应的结果数据存到一个对象中，
+    // 调用时，判断参数对应的数据是否存在，存在就返回对应的结果数据
+    {
+      function memoize(f) {
+        var cache = {}
+        return function () {
+          var key = arguments.length + [].join.call(arguments, ',')
+          if (key in cache) {
+            return cache[key]
+          } else {
+            return cache[key] = f.apply(this, arguments)
+          }
+        }
+      }
+
+      // 测试一下
+      var add = function (a, b, c) {
+        return a + b + c
+      }
+      var memoizedAdd = memoize(add)
+
+      console.time('use memoize')
+      for (var i = 0; i < 100000; i++) {
+        memoizedAdd(1, 2, 3)
+      }
+      console.timeEnd('use memoize')
+
+      console.time('not use memoize')
+      for (var i = 0; i < 100000; i++) {
+        add(1, 2, 3)
+      }
+      console.timeEnd('not use memoize')
+    }
+
+    {
+      // 第二版 (来自 underscore 的实现)
+      var memoize = function (func, hasher) {
+        var memoize = function (key) {
+          var cache = memoize.cache;
+          var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+          if (!cache[address]) {
+            cache[address] = func.apply(this, arguments);
+          }
+          return cache[address];
+        };
+        memoize.cache = {};
+        return memoize;
+      };
+    }
+  </script>
+</body>
+
+</html>
