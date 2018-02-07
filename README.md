@@ -50,8 +50,9 @@
 ## ES6基础
 - [ES6基础之promise](https://github.com/iiicon/js-library/blob/master/demos/ES6%E5%9F%BA%E7%A1%80%E4%B9%8Bpromise.html)
 - [ES6基础之常用知识合集](https://github.com/iiicon/js-library/blob/master/demos/ES6%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86%E5%90%88%E9%9B%86.html)
+- [ES6基础之async/await](https://github.com/iiicon/js-library/blob/master/demos/ES6%E5%9F%BA%E7%A1%80%E4%B9%8Basync%7Cawait.md)
 
 ## JS-API
 
 - [js-web-api](https://github.com/iiicon/js-library/blob/master/documents/js-web-api.md)
-- [js-array-api]()
+- [js-array-api](https://github.com/iiicon/js-library/blob/master/documents/js-array-api.md)
