@@ -22,8 +22,8 @@
 - [JavaScript深入之类数组对象与arguments](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E4%B8%8Earguments.html)
 - [JavaScript深入之创建对象的多种模式及优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9.html)
 - [JavaScript深入之继承的多种方式和优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9.html)
-- [JavaScript基础之事件循环](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
-- [JavaScript基础之异步与单线程](https://github.com/iiicon/js-library/blob/master/demos/%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%8D%95%E7%BA%BF%E7%A8%8B.md)
+- [JavaScript深入之事件循环](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.md)
+- [JavaScript深入之异步与单线程](https://github.com/iiicon/js-library/blob/master/demos/%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%8D%95%E7%BA%BF%E7%A8%8B.md)
 
 ## 专题系列
 
