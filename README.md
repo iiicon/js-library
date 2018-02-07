@@ -1,10 +1,9 @@
 # js-library
 用心变成自己的东西，才能算学会
 
-## 进度
-- js 深入系列已经完成   
-- js 编程规范正在进行中...
-- js 专题系列正在进行中...
+## 编码规范 （code convention）
+
+- [编程风格（来自编写可维护的JavaScript）](https://github.com/iiicon/js-library/blob/master/documents/code-convention.md)
 
 ## 深入系列目录
 0. [JavaScript深入之内存空间](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4.html)
@@ -23,12 +22,6 @@
 13. [JavaScript深入之类数组对象与arguments](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E4%B8%8Earguments.html)
 14. [JavaScript深入之创建对象的多种模式及优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%A8%A1%E5%BC%8F%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9.html)
 15. [JavaScript深入之继承的多种方式和优缺点](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9.html)
-
-
-## 编码规范 （code convention）
-
-- [编程风格（来自编写可维护的JavaScript）](https://github.com/iiicon/js-library/blob/master/documents/code-convention.md)
-
 
 ## 专题系列
 
@@ -51,6 +44,9 @@
 - [JavaScript专题之拖拽](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8B%96%E6%8B%BD.html)
 - []()
 - []()
+
+## ES6基础
+- [ES6基础之promise]()
 
 ## JS-API
 

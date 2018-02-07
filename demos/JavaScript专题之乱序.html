@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 数组乱序
+    {
+      // 1 Math.random
+      var value = [1, 2, 3, 4, 5]
+      value.sort(function () {
+        return Math.random() - 0.5
+      })
+      console.log(value)
+
+      // 感觉这种是很完美的，但是据说
+      var times = [0, 0, 0, 0, 0];
+
+      for (var i = 0; i < 100000; i++) {
+
+        let arr = [1, 2, 3, 4, 5];
+
+        arr.sort(() => Math.random() - 0.5);
+
+        times[arr[4] - 1]++;
+
+      }
+
+      console.log(times)
+      // 有的数字出现的次数偏差很大，会有数量级的差异 所以这种是有问题的
+
+      // 据说
+      // v8 在处理 sort 方法时，当目标数组长度小于 10 时，使用插入排序；反之，使用快速排序和插入排序的混合排序
+      function InsertionSort(a, from, to) {
+        for (var i = from + 1; i < to; i++) {
+          var element = a[i];
+          for (var j = i - 1; j >= from; j--) {
+            var tmp = a[j];
+            var order = comparefn(tmp, element);
+            if (order > 0) {
+              a[j + 1] = tmp;
+            } else {
+              break;
+            }
+          }
+          a[j + 1] = element
+        }
+      };
+
+      // 写一个代码测试一下插入排序
+      var times = 10000
+      var res = {}
+
+      for (var i = 10; i < times; i++) {
+        var arr = [1, 2, 3]
+        arr.sort(() => Math.random() - 0.5);
+
+        var key = JSON.stringify(arr);
+        res[key] ? res[key]++ : res[key] = 1;
+      }
+      for (var key in res) {
+        res[key] = res[key] / times * 100 + '%'
+      }
+      console.log(res)
+
+      // 所以根本原因在于什么呢？其实就在于在插入排序的算法中，当待排序元素跟有序元素进行比较时，一旦确定了位置，
+      // 就不会再跟位置前面的有序元素进行比较，所以就乱序的不彻底。
+
+    }
+
+    {
+      function shuffle(a) {
+        var x, j, i;
+        for (i = a.length; i; i--) {
+          j = Math.floor(Math.random * i)
+          x = a[i - 1]
+          a[i - 1] = a[j]
+          a[j] = x
+        }
+        return a
+      }
+    }
+
+    {
+      // es6
+      function shufflex(a) {
+        for (let i = a.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        }
+        return a;
+      }
+
+      // 测试一下
+      var times = 100000;
+      var res = {};
+
+      for (var i = 0; i < times; i++) {
+        var arr = shufflex([1, 2, 3]);
+
+        var key = JSON.stringify(arr);
+        res[key] ? res[key]++ : res[key] = 1;
+      }
+
+      // 为了方便展示，转换成百分比
+      for (var key in res) {
+        res[key] = res[key] / times * 100 + '%'
+      }
+
+      console.log(res) // 终极乱序了
+    }
+  </script>
+</body>
+
+</html>

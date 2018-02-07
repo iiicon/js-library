@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- es6 常用知识点 -->
+  <script>
+    {
+      // 1 let const 块级作用域和不会变量提升
+      // 我们常常使用let来声明一个值会被改变的变量，而使用const来声明一个值不会被改变的变量，也可以称之为常量
+    }
+
+    {
+      // 2 箭头函数的使用
+      // 箭头函数可以替换函数表达式，不能替换函数声明。 
+      // 而且在箭头函数中没有 this， 如果你用了this，那一定指的是外层的 this，所以 call apply，bind 统统不能用来改变 this 指向了
+
+      {
+        const person = {
+          name: 'tom',
+          getName: () => this.name,
+          getNameOK: function () {
+            return setTimeout(() => this.name, 1000);
+          }
+        }
+      }
+      // 所以这种情况 this 指的就是 undefined，所以如果你要用 this 你就不要用箭头函数了
+      // 在ES6中，会默认采用严格模式，因此this也不会自动指向window对象了，而箭头函数本身并没有this，因此this就只能是undefined
+      // 并且呢也无法访问 arguments 对象 
+      // 加 setTimeout 是一种解决办法 会保存 this 到 _this
+
+    }
+
+    {
+      // 3 模板字符串就很简单了
+    }
+
+    {
+      // 4 解析解构
+      {
+        const props = {
+          className: 'tiger-button',
+          loading: false,
+          clicked: true,
+          disabled: 'disabled'
+        }
+
+        // es5
+        var loading = props.loading;
+        var clicked = props.clicked;
+
+        // es6
+        const { loading, clicked } = props;
+
+        // 给一个默认值，当props对象中找不到loading时，loading就等于该默认值
+        const { loading = false, clicked } = props;
+      }
+    }
+
+    {
+      // 5 函数默认参数 也很简单
+    }
+
+    {
+      // 6 展开运算符
+      {
+        // 展开运算符还常常运用在解析结构之中，例如我们在Raect封装组件的时候常常不确定props到底还有多少数据会传进来，就会利用展开运算符来处理剩余的数据
+        // 这种方式在react中十分常用
+        const props = {
+          size: 1,
+          src: 'xxxx',
+          mode: 'si'
+        }
+
+
+        const { size, ...others } = props;
+
+        console.log(others)
+
+          // 然后再利用暂开运算符传递给下一个元素，再以后封装react组件时会大量使用到这种方式，正在学习react的同学一定要搞懂这种使用方式
+          `< button {...others } size = { size } />`
+      }
+      {
+        // 展开运算符还用在函数的参数中，来表示函数的不定参。只有放在最后才能作为函数的不定参，否则会报错
+        {
+          // 所有参数之和
+          const add = (a, b, ...more) => {
+            return more.reduce((m, n) => m + n) + a + b
+          }
+        }
+      }
+    }
+
+    {
+      // 7 对象字面量与 class
+      // es6 针对对象字面量做了许多简化语法的处理
+      {
+        const name = 'Jane';
+        const age = 20
+
+        // es6
+        const person = {
+          name,
+          age
+        }
+
+        // es5
+        var person = {
+          name: name,
+          age: age
+        };
+      }
+
+      // 在一个模块中对快提供接口时
+      {
+        const getName = () => person.name;
+        const getAge = () => person.age;
+
+        // commonJS的方式
+        module.exports = { getName, getAge }
+
+        // ES6 modules的方式
+        export default { getName, getAge }
+      }
+
+      // 对象字面量中的方法也有简写形式
+      {
+        const person = {
+          name,
+          age,
+          getName() { // 只要不使用箭头函数，this就还是我们熟悉的this
+            return this.name
+          }
+        }
+      }
+
+      // 在对象字面量中可以使用中括号作为属性，表示属性名也能是一个变量了
+      {
+        const name = 'Jane';
+        const age = 20
+
+        const person = {
+          [name]: true,
+          [age]: true
+        }
+      }
+
+      // class 基本就外面套一层，其他都一样  创建对象提供的新的语法糖
+      {// ES6
+        class Person {
+          constructor(name, age) {  // 构造函数
+            this.name = name;
+            this.age = age;
+          }
+
+          getName() {  // 原型方法
+            return this.name
+          }
+        }
+      }
+      // 在 babel 中运行就会变成下面这一堆东西
+      {
+        var _createClass = function () {
+          function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+              var descriptor = props[i];
+              descriptor.enumerable = descriptor.enumerable || false; // 枚举
+              descriptor.configurable = true;  // 删除
+              if ("value" in descriptor) descriptor.writable = true;
+              Object.defineProperty(target, descriptor.key, descriptor);
+            }
+          }
+          return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+          };
+        }();
+        function _classCallCheck(instance, Constructor) {
+          if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+          }
+        }
+        var Person = function () {
+          function Person(name, age) {
+            _classCallCheck(this, Person);
+
+            // 构造函数
+            this.name = name;
+            this.age = age;
+          }
+
+          _createClass(Person, [{
+            key: "getName",
+            value: function getName() {
+              // 原型方法
+              return this.name;
+            }
+          }]);
+
+          return Person;
+        }();
+      }
+
+      {
+        // 例子
+        class Person {
+          constructor(name, age) {  // 构造函数
+            this.name = name;
+            this.age = age;
+          }
+
+          getName() {   // 这种写法表示将方法添加到原型中
+            return this.name
+          }
+
+          static a = 20;  // 等同于 Person.a = 20
+
+          c = 20;   // 表示在构造函数中添加属性 在构造函数中等同于 this.c = 20
+
+          // 箭头函数的写法表示在构造函数中添加方法，在构造函数中等同于this.getAge = function() {}
+          getAge = () => this.age // this 的值不会改变，利用这个特性可以传值
+
+        }
+      }
+
+      // 继承
+      {
+        // Student类继承Person类
+        class Student extends Person {
+          constructor(name, age, gender, classes) {
+            super(name, age);
+            this.gender = gender;
+            this.classes = classes;
+          }
+
+          getGender() {
+            return this.gender;
+          }
+        }
+      }
+
+      // 我们只需要一个extends关键字，就可以实现继承了，不用像ES5那样去担心构造函数继承和原型继承，除此之外，我们还需要关注一个叫做super的方法。
+      // 在继承的构造函数中，我们必须如上面的例子那么调用一次super方法，它表示构造函数的继承，与ES5中利用call / apply继承构造函数是一样的功能
+      {
+        // 构造函数中
+        // es6
+        super(name, age);
+
+        // es5
+        Person.call(this);
+      }
+    }
+
+  </script>
+</body>
+
+</html>

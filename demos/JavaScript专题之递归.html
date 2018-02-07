@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 程序调用自身的编程技巧称为递归
+    {
+      // 1 阶乘
+      function factorial(n) {
+        if (n == 1) {
+          return n
+        }
+        return n * factorial(n - 1)
+      }
+    }
+
+    {
+      // 斐波那契数列
+      function fibonacci(n) {
+        return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+      }
+    }
+    // 从上面的例子可以看出 构成递归需具备边界条件、递归前进段、递归返回段，当边界条件不满足时，递归返回
+
+    {
+      /* 
+       总结一下递归的特点
+       1. 子问题需要和原始问题为同样的问题，且更为简单
+       2. 不能无限制的调用，需要有一个出口
+       */
+
+      //  函数的不停调用就会创建越来越多的执行上下文，优化就变得很重要
+      // 尾调用可以在下一个函数执行的时候弹出当前的函数调用栈
+
+      // 就以阶乘来说，怎么样进行尾调用呢
+      // 答案就是所有用到的变量都改为函数的参数
+      function factorial(n, res) {
+        if (n == 1) {
+          return res
+        }
+        return factorial(n - 1, res * n)
+      }
+
+      // 利用偏函数就可以不用再输入1了
+      var newFactorial = partial(factorial, _, 1)
+      // newFactorial(5)
+    }
+
+  </script>
+</body>
+
+</html>
