@@ -2,7 +2,7 @@
   // 1 双层循环
   var arr = [2, 2, '2', 2]
 
-  function unique(arr) {
+function unique(arr) {
     var res = []
 
     for (var i = 0; i < arr.length; i++) {

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h3>js 内置对象: Function Date Boolean String Number Object Math Regexp Error Array</h3>
+  <script>
+    /* 
+     * 隐式转换主要有三种
+     * 1 将值转换为原始值  ToPrimitive()
+     * 2 将值转换为数值  ToNumber()
+     * 3 将值转换为字符串  ToString()
+     */
+
+    {
+      //  ToPrimitive(input, PreferredType)
+
+      // input是要转换的值，PreferredType是可选参数，可以是Number或String类型。
+      // 他只是一个转换标志，转化后的结果并不一定是这个参数所值的类型，但是转换结果一定是一个原始值（或者报错）。
+
+      // 如果PreferredType被标记为Number
+      /* 
+       * 1、如果输入的值已经是一个原始值，则直接返回它
+       * 2、否则，如果输入的值是一个对象，则调用该对象的valueOf()方法，如果valueOf()方法的返回值是一个原始值，则返回这个原始值。
+       * 3、否则，调用这个对象的toString()方法，如果toString()方法返回的是一个原始值，则返回这个原始值。
+       * 4、否则，抛出TypeError异常。
+       */
+
+      // 如果PreferredType被标记为String
+      /* 
+       * 1、如果输入的值已经是一个原始值，则直接返回它
+       * 2、否则，调用这个对象的toString()方法，如果toString()方法返回的是一个原始值，则返回这个原始值。
+       * 3、否则，如果输入的值是一个对象，则调用该对象的valueOf()方法，如果valueOf()方法的返回值是一个原始值，则返回这个原始值。
+       * 4、否则，抛出TypeError异常
+       */
+
+      // preferredType 为可选参数，若不设置
+      // input 为 Date 类型，则PreferredType被设置为String 否则，PreferredType被设置为Number
+
+    }
+
+    {
+      // toString
+
+      // Number Boolean String Array Date RegExp Function 构造函数都有内置的 toString
+      // 除了这些对象和其实例化对象之外， 其余的都是返回类型 "[object, Object]"
+    }
+
+    {
+      // valueOf
+
+      // Number String Boolean 转换成基础类型
+      // Date 转换成毫秒数
+      // 其他的都返回 this
+    }
+    {
+      // 1
+      `2 * {} = ?
+      1、首先 * 运算符只能对number类型进行运算，故第一步就是对{ } 进行ToNumber类型转换。
+      2、由于{ } 是对象类型，故先进行原始类型转换，ToPrimitive(input, Number)运算。
+      3、所以会执行valueOf方法，({}).valueOf(), 返回的还是{ } 对象，不是原始值。
+      4、继续执行toString方法，({}).toString(), 返回"[object Object]"，是原始值。
+      5、转换为原始值后再进行ToNumber运算，"[object Object]"就转换为NaN。
+      故最终的结果为 2 * NaN = NaN`
+        // 2
+        `({} + {}) = ?
+      两个对象的值进行+运算符，肯定要先进行隐式转换为原始类型才能进行计算。
+      1、进行ToPrimitive转换，由于没有指定PreferredType类型，{}会使默认值为Number，进行ToPrimitive(input, Number)运算。
+      2、所以会执行valueOf方法，({}).valueOf(),返回的还是{}对象，不是原始值。
+      3、继续执行toString方法，({}).toString(),返回"[object Object]"，是原始值。
+      故得到最终的结果，"[object Object]" + "[object Object]" = "[object Object][object Object]"`
+    }
+
+
+    {
+      //  == 如何判断
+      `比较运算 x == y, 其中 x 和 y 是值，返回 true 或者 false。这样的比较按如下方式进行：
+      1、若 Type(x) 与 Type(y) 相同， 则
+
+      1 * 若 Type(x) 为 Undefined， 返回 true。
+      2 * 若 Type(x) 为 Null， 返回 true。
+      3 * 若 Type(x) 为 Number， 则
+
+        (1) 、若 x 为 NaN， 返回 false。
+      (2) 、若 y 为 NaN， 返回 false。
+      (3) 、若 x 与 y 为相等数值， 返回 true。
+      (4) 、若 x 为 + 0 且 y 为 −0， 返回 true。
+      (5) 、若 x 为 −0 且 y 为 + 0， 返回 true。
+      (6) 、返回 false。
+
+      4 * 若 Type(x) 为 String, 则当 x 和 y 为完全相同的字符序列（长度相等且相同字符在相同位置）时返回 true。 否则， 返回 false。
+      5 * 若 Type(x) 为 Boolean, 当 x 和 y 为同为 true 或者同为 false 时返回 true。 否则， 返回 false。
+      6 * 当 x 和 y 为引用同一对象时返回 true。否则，返回 false。
+      2、若 x 为 null 且 y 为 undefined， 返回 true。
+      3、若 x 为 undefined 且 y 为 null， 返回 true。
+      4、若 Type(x) 为 Number 且 Type(y) 为 String，返回比较 x == ToNumber(y) 的结果。
+      5、若 Type(x) 为 String 且 Type(y) 为 Number，返回比较 ToNumber(x) == y 的结果。
+      6、若 Type(x) 为 Boolean， 返回比较 ToNumber(x) == y 的结果。
+      7、若 Type(y) 为 Boolean， 返回比较 x == ToNumber(y) 的结果。
+      8、若 Type(x) 为 String 或 Number，且 Type(y) 为 Object，返回比较 x == ToPrimitive(y) 的结果。
+      9、若 Type(x) 为 Object 且 Type(y) 为 String 或 Number， 返回比较 ToPrimitive(x) == y 的结果。
+      10、返回 false。`
+      /* 
+       * 1、x,y 为null、undefined两者中一个 // 返回true
+       * 2、x、y为Number和String类型时，则转换为Number类型比较。
+       * 3、有Boolean类型时，Boolean转化为Number类型比较。
+       * 4、一个Object类型，一个String或Number类型，将Object类型进行原始转换后，按上面流程进行原始值比较
+       */
+      {
+        `[] == !{}
+        1、! 运算符优先级高于==，故先进行！运算。
+        2、!{}运算结果为false，结果变成 [] == false比较。
+        3、根据上面第7条，等式右边y = ToNumber(false) = 0。结果变成 [] == 0。
+        4、按照上面第9条，比较变成ToPrimitive([]) == 0。
+            按照上面规则进行原始值转换，[]会先调用valueOf函数，返回this。
+          不是原始值，继续调用toString方法，x = [].toString() = ''。
+          故结果为 '' == 0比较。
+        5、根据上面第5条，等式左边x = ToNumber('') = 0。
+          所以结果变为： 0 == 0，返回true，比较结束。`
+      }
+    }
+
+    {
+      // 面试题
+      const a = {
+        i: 1,
+        toString: function () {
+          return a.i++;
+        }
+      }
+      if (a == 1 && a == 2 && a == 3) {
+        console.log('hello world!');
+      }
+
+      // 解答
+      `
+      1、当执行a == 1 && a == 2 && a == 3 时，会从左到右一步一步解析，首先 a == 1，会进行上面第9步转换。ToPrimitive(a， Number) == 1。
+      2、ToPrimitive(a, Number)，按照上面原始类型转换规则，会先调用valueOf方法，a的valueOf方法继承自Object.prototype。返回a本身，而非原始类型，故会调用toString方法。
+      3、因为toString被重写，所以会调用重写的toString方法，故返回1，注意这里是i++，而不是++i，它会先返回i，在将i+1。故ToPrimitive(a, Number) = 1。也就是1 == 1，此时i = 1 + 1 = 2。
+      4、执行完a == 1返回true，会执行a == 2，同理，会调用ToPrimitive(a, Number)，同上先调用valueOf方法，在调用toString方法，由于第一步，i = 2此时，ToPrimitive(a, Number) = 2， 也就是2 == 2, 此时i = 2 + 1。
+      5、同上可以推导 a == 3也返回true。故最终结果 a == 1 && a == 2 && a == 3返回true
+      `
+    }
+  </script>
+</body>
+
+</html>
