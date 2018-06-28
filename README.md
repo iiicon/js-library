@@ -4,6 +4,7 @@
 ## 编码规范 （code convention）
 
 - [编程风格（来自编写可维护的JavaScript）](https://github.com/iiicon/js-library/blob/master/documents/code-convention.md)
+- [推荐一个别人的标准，有实例代码，前端项目top100](https://www.awesomes.cn/repo/airbnb/javascript)
 
 ## 深入系列目录
 - [JavaScript深入之内存空间](https://github.com/iiicon/js-library/blob/master/demos/JavaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4.html)
@@ -57,3 +58,7 @@
 - [Js-Web-Api](https://github.com/iiicon/js-library/blob/master/documents/js-web-api.md)
 - [Js-Array-Api](https://github.com/iiicon/js-library/blob/master/documents/js-array-api.md)
 - [Js-Object-Api]()
+
+
+## 构建-打包工具
+- []
