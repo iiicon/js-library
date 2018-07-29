@@ -11,7 +11,9 @@
 | decodeURI | 解码 | |
 | decodeURIComponent | 函数可把字符串作为 URI 组件进行解码 |
 | unescape | 函数可对通过 escape() 编码的字符串进行解码。| 与 url 无关的内容便可用 escape 相关 api |
-
+| client | document.documentElement.clientHeight | 获取高度很关键
+| scrollHeight | document.documentElement.scrollHeight | 获取滚动高度
+| scrollTop | document.documentElement.scrollTop | 超过设备的高度
 
 
 
