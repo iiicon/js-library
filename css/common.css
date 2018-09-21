@@ -1,0 +1,17 @@
+
+/* border-1px */
+.border-1px { border-bottom: 1px solid #E1E2E3 }
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border-1px { border-bottom: 0.5px solid #E1E2E3 }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 3) {
+    .border-1px { border-bottom: 0.333333px solid #E1E2E3 }
+}
+
+.border-all-1px { border-bottom: 1px solid #E1E2E3 }
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border-all-1px { border-bottom: 0.5px solid #E1E2E3 }
+}
+@media screen and (-webkit-min-device-pixel-ratio: 3) {
+    .border-all-1px { border-bottom: 0.333333px solid #E1E2E3 }
+}
