@@ -222,4 +222,8 @@ cmd + shift + p 打开命令面板
 
 ### 怎么在编辑器里做好版本管理？
 
-#### test git and svn update commit push fuck
+#### 版本管理视图
+
+- ctrl + shift + g 打开版本管理视图
+
+- git 和 svn 基本都同样的界面，但是也有差异，先拿 git 来说，比如说 git 有三种主要的文件状态 committed 已提交， Modified 修改， staged 暂存，当我们修改了一个文件，它会变成 Modified， 然后我们通过脚本 git add ${filename} 把这个文件状态改为暂存，被标记为暂存状态的文件，才有机会被提交，最后我们通过 git commit 来提交所有在暂存状态里的文件
