@@ -222,4 +222,4 @@ cmd + shift + p 打开命令面板
 
 ### 怎么在编辑器里做好版本管理？
 
-#### test git and svn
+#### test git and svn update commit push fuck
