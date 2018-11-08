@@ -227,3 +227,96 @@ cmd + shift + p 打开命令面板
 - ctrl + shift + g 打开版本管理视图
 
 - git 和 svn 基本都同样的界面，但是也有差异，先拿 git 来说，比如说 git 有三种主要的文件状态 committed 已提交， Modified 修改， staged 暂存，当我们修改了一个文件，它会变成 Modified， 然后我们通过脚本 git add ${filename} 把这个文件状态改为暂存，被标记为暂存状态的文件，才有机会被提交，最后我们通过 git commit 来提交所有在暂存状态里的文件
+
+
+### 配置终端模拟器
+
+> 图形化界面不可能适应每个人，也不可能替我们弯沉所有可能的操作
+
+> vscode 的理念：用图形化的工具，只完成最常用的或者 GUI 擅长做的那些操作，而把剩下的那部分重新交还给终端
+
+> 内置的终端又叫做集成终端
+
+#### 创建终端
+
+- ctrl + ` toggle integrated terminal (切换集成终端, 打开或者关闭)
+- ctrl + shift + ` create new integrated terminal (新建集成终端)
+- cmd + \ split terminal （拆分终端）
+- 终止终端在命令面板中设置 kill the active terminal instance
+
+#### 终端内操作以及设置
+
+"terminal.integrated.shell.osx": "/bin/zsh" 修改启动 shell 环境
+"terminal.integrated.env.osx": {} 设置环境变量
+"terminal.integrated.cwd": "" shell 启动时的初始目录
+"terminal.integrated.rightClickBehavior": "selectWord" 控制右键点击行为
+"terminal.integrated.scrollback": 1000 终端运行脚本显示的行数
+
+
+### 为你的项目打造 workflow 
+
+#### 执行任务
+
+> 任务系统的目的就是将各种形形色色的任务脚本尽可能地统一化，然后提供一套简单又定制化强的方式操作他们
+
+##### 任务自动检测
+
+如果你的项目中有 typescript grunt jake gulp npm 这几个脚本工具的配置文件的话，vscode 会自动读取当前文件夹下的配置。
+
+如果有 package.json， 命令面板搜索运行任务 run task 时，就能看到 npm 相关的任务
+
+##### 自定义任务（configure task）
+
+- type 为 shell
+
+```
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "echo",
+      "type": "shell", // 默认 shell
+      "command": "echo Hello"  // 命令或者程序
+    }
+  ]
+}
+```
+
+- type 为 process, 打开 qq 浏览器
+
+```
+{
+      "label": "QQBrowser",
+      "type": "process",
+      "command": "/Applications/QQBrowser.app/Contents/MacOS/QQBrowser"
+}
+```
+
+##### 分组和结果显示
+
+```
+{
+  "label": "test shell",
+  "type": "shell",
+  "command": "./test.sh",
+  "windows": {
+    "command": ".\\scripts\\test.cmd"
+  },
+  "group": {   // 三种选择 build test none
+    "isDefault": true,   // 设为默认运行测试任务
+    "kind": "test"
+  },
+  "presentation": {  // 任务运行的时候是否调出运行的界面
+    "reveal": "always",  
+    "panel": "new"
+  },
+  "options": {
+    "cwd": "", // 任务脚本文件夹地址
+    "env": {}, // 环境变量
+    "shell": { // 指定 shell 环境
+      "executable": "bash"
+    }
+  }
+```
+  **但是现在有一个问题就是 run test 可以运行，但是 cmd shift b 却不行**
+
