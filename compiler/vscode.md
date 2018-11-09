@@ -263,7 +263,7 @@ cmd + shift + p 打开命令面板
 
 如果你的项目中有 typescript grunt jake gulp npm 这几个脚本工具的配置文件的话，vscode 会自动读取当前文件夹下的配置。
 
-如果有 package.json， 命令面板搜索运行任务 run task 时，就能看到 npm 相关的任务
+如果有 package.json， 命令面板搜索运行任务 run task 时，就能看到 npm 相关的任务（文件就是 .vscode 下面的 task.json）
 
 ##### 自定义任务（configure task）
 
@@ -299,6 +299,12 @@ cmd + shift + p 打开命令面板
   "label": "test shell",
   "type": "shell",
   "command": "./test.sh",
+  "args": [
+    {
+    	"value": "hello",
+    	"quoting": "escape" // 默认使用 escape，strong 是单引号，weak 是双引号
+    }
+  ]
   "windows": {
     "command": ".\\scripts\\test.cmd"
   },
@@ -319,4 +325,5 @@ cmd + shift + p 打开命令面板
   }
 ```
   **但是现在有一个问题就是 run test 可以运行，但是 cmd shift b 却不行**
+
 
