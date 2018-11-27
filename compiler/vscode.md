@@ -1,5 +1,7 @@
 ## 玩转 VS Code
 **注：mac 版本的 vscode，其他版本需要稍微变通一下**
+> 基础语言支持还需要再研究研究
+> cmd option 好像有点交换，需要研究一下
 
 ### 1 上手 vscode
 
@@ -327,3 +329,340 @@ cmd + shift + p 打开命令面板
   **但是现在有一个问题就是 run test 可以运行，但是 cmd shift b 却不行**
 
 
+### debugger
+
+#### 调试窗口
+
+- 打开 cmd + shift + d
+- f5 开始调试
+
+vscode 用于配置调试的文件也是一个 json 文件，launch.json
+
+#### 调试 launch.json
+
+```
+{
+ // 使用 IntelliSense 了解相关属性。 
+ // 悬停以查看现有属性的描述。
+ // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+ "version": "0.2.0",
+ "configurations": [
+  {
+   "type": "node", // 调试器的类型
+   "request": "launch", // 如果我们的代码已经运行起来了，则可以将它的值设为 attach 我们则是使用调试器来调试已有的代码进程，如果值是 launch，意味着我们会使用调试器来调试这个已有的代码进程
+   "name": " 启动程序 ", // 这个配置的名字
+   "program": "${file}"
+  }
+ ]
+}
+
+```
+
+剩下的模板和智能提示已经做得很好了，还有就是新增加的参数
+
+```
+{
+ "type": "node",
+ "request": "launch",
+ "name": "Gulp task",
+ "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js",
+ "args": [ // 传入的参数
+  "task"
+ ]
+}
+```
+
+
+### 你不知道的工作区快捷键
+
+#### 编辑器操作
+
+##### 横向编辑器组（多个编辑器称为编辑器组 editor group）
+
+- 拆分编辑器 （split editor） cmd + \
+- 关闭编辑器依然可以用 cmd + w
+- 编辑器组之间快速跳转 ctrl + 1、2
+
+##### 纵向编辑器组
+
+- 切换垂直/水平编辑器布局（flip editor group layout） cmd + option + 0
+
+##### Tab
+
+- 打开上一个/下一个编辑器（open next/previous editor）cmd + option + ←/→ 需要注意的是这个命令会打开编辑器中的每一个tab，如果你需要在 group 中你需要（open next editor in group）
+
+##### 移动编辑器 tab
+
+- move editor into next/previous group
+
+##### grid 布局
+
+- grid editor layout 2*2
+- 聚焦到上方编辑器组（focus above editor group）
+
+##### drag & drop
+
+虽然网格系统很强大，但是不一定它就一定是合适的，一般而言，左右两个编辑器组就够用了，只需要熟悉几个快捷键就行了，还有就是可以使用鼠标，拖到你想要的位置
+
+##### 专注模式
+
+- 关闭视图（toggle ） cmd + b
+- 关闭面板（toggle panel） cmd + J
+- 切换活动栏（toggle activity bar visibility）
+- 切换状态栏（toggle status bar visibility）
+- 切换禅模式（toggle zen model）,esc退出
+- 切换居中布局（toggle centered layout）
+
+![创造自己的工作台](https://static001.geekbang.org/resource/image/11/8c/1111c17d45a16da352a5b71f05c6d18c.png)
+
+
+### 编辑器设置和快捷键
+
+主要说快捷键绑定的一些操作，其他的操作都比较简单，有图形化的界面
+
+打开 keybindings.json 在右边可以设置自己的快捷键
+
+```
+{
+  "key": "cmd+enter",   // 按键
+  "command": "command",  // 为那个命令指定快捷键
+  "when": "editorTextFocus" // 条件
+  		可以用 ！ ==  && 和 =~（正则）
+}
+```
+
+要删除快捷键在 command 上加 - 就行了
+
+```
+{
+  "key": "cmd+s",
+  "command": "-workbench.action.files.save"
+}
+```
+
+
+### 基础语言支持：JSON Markdown
+
+#### JSON
+
+vscode 的配置文件、任务系统、代码片段都是使用 JSON 语法，而且 vscode 为文件指定了一个特殊的 JSON 文件类型，称为 JSON width Comments
+
+与此同时，JSON 的语言服务支持 JSON Schema，可以规范 JSON 内容的格式，和做一定程度的语法检查
+
+在自己的个人设置或者工作区设置中可以有三种情况，修改 json.schemas 就行了
+
+#####  第一种
+
+```
+{
+   "$schema": "http://json.schemastore.org/babelrc"
+}
+```
+
+##### 第二种
+
+```
+"json.schemas": [
+     {
+        "fileMatch": [
+            "/.babelrc"
+        ],
+        "url": "http://json.schemastore.org/babelrc"
+    }
+]
+
+```
+
+##### 第三种
+**注意默认情况下 vscode 并不认识自己设置的文件，需要点击语言设置选择 JSON**
+
+```
+{
+  "fileMatch": [
+    "/.myconfig"
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "the name of the iiicon wanna"
+      }
+    }
+  }
+}
+```
+
+
+### 前端语言支持
+
+#### 基础语言支持
+
+转到定义 go to definition (F12)
+格式化文件 fromat document
+符号跳转 cmd shift o
+函数建议列表和参数建议
+
+#### 类型提示
+
+##### JSDoc
+
+##### typings/d.ts	
+
+VS Code 会自动搜索，找到合适的 d.ts 文件，然后下载下来，接着就能提供智能提示功能了，这种功能又叫做自动采集功能 auto type acquisition	
+
+##### ts-check(真是一个好东西)
+
+```
+// @ts-check 手动开启更强的代码审核
+```
+
+#### 模块引用
+
+##### 相对地址引用
+
+##### jsconfig.json
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2016",
+        "baseUrl": "."
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}
+```
+
+##### 自模块引用 auto imports
+
+##### 自动模块更新
+
+当你文件的路径改变的时候会自动修改 import 的文件路径
+
+#### 代码审查 tsconfig/checkJs
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2016",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "*",
+                "common/*"
+            ]
+        },
+        "checkJs": true
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
+    ]
+}
+```
+
+#### Node.js
+
+> vscode 的代码调试 api，nodejs 是支持最好的
+
+##### 代码调试 auto attach
+
+打开命令面板 输入切换开关自动附加 toggle auto attach, 然后打断点，接着执行命令 `node --inspect-brk index.js`,个人感觉用处不大的原因可能还是平时不怎么写 node，写 node 的话可以省去平时写 lunch.json 的麻烦
+
+##### 记录点 logpoints	
+
+一样可以得到输出结果，而且不用改变代码
+
+
+### HTML、CSS 以及前端开关神器 Emmet 介绍与支持
+
+#### HTML、CSS
+
+##### 1 取色器 color picker
+
+五个部件 饱和度（saturation）透明度（opacity）色相（hue）上方左侧不同写法，右侧回退之前
+
+##### 2 预览
+
+经测试也只能在 css 中预览 html 结构
+
+#### Emmet
+
+	子节点操作符 >
+	ul>li
+	
+	兄弟节点操作符 +
+	div+p+bq
+	
+	乘法操作 *
+	ul>li*3
+	
+	class name Id
+	ul#list>list*3
+	
+	官方例子
+	#page>div.logo+ul#navigation>li*5>a{Item $}
+	
+#### Emmet in vscode
+
+##### 展开缩写
+
+默认 tab 展开是关闭的 可以设置 `emmet.triggerExpansionOnTab`
+
+##### 建议列表
+
+比如 p10 padding: 10px
+
+##### 使用缩写包围
+
+选中要包围的标签，打开命令面板输入缩写包围，wrap with abbreviation
+
+##### 多光标也支持缩写包围
+
+##### 其他操作
+
+标签转至配对 emmet: 转至匹配对（go to matching pair）   
+删除标签对 emmet: 移除标签 （remove tag）
+
+##### 在某个语言中打开 emmet 支持
+
+	"emmet.includeLanguages": {
+        "wxml": "html",
+        "vue-html": "html"
+    }
+
+
+### 如何深度定制自己的主题
+
+#### 固定 UI 视图
+
+- 切换状态栏可见性 toggle status bar visibility
+- 切换侧边栏位置 toggle side bar position
+- 切换搜索视图位置 
+
+#### 修改工作区配色 
+
+*个人表示懒得弄*
+
+	workbench.colorCustomizations 触发提示就能看到了
+	
+#### 修改编辑器配色
+
+检查 TM 作用域（inspect TM scope）运行这个命令会有一个悬浮窗口呈现，就是当前代码缩对应的语言、语法类型以及当前的颜色和背景色
+
+    editor.tokenColorCustomization 设置颜色
+	
+#### 基于主题修改配色
+
+也一样，设置的时候先选择主题就行了
+
+
+
+### 一些可能没有用的 tips & tricks
+
+跳转 F12 自己的 mac 只能切屏 不起作用
