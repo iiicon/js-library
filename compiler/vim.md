@@ -43,3 +43,18 @@
   p 当前位置之后， P 当前位置之前
   
   yy 拷贝当前行，相当于 ddp (小写)
+
+#### uodo/redo
+
+  u undo
+  ctrl+r redo
+
+#### 打开、保存、退出、改变文件
+
+  :e <path/to/file> 打开一个文件
+  :w 存盘
+  :saveas <path/to/file> 另一个 <path/to/file>
+  :x ZZ :wq 保存并退出
+  :q! 退出不保存
+  :qa! 强制退出所有正在编辑的文件
+  :bn :bp 打开多个文件的时候切换上一个文件或者下一个文件
