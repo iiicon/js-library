@@ -14,6 +14,10 @@
 | client | document.documentElement.clientHeight | 获取高度很关键
 | scrollHeight | document.documentElement.scrollHeight | 获取滚动高度
 | scrollTop | document.documentElement.scrollTop | 超过设备的高度
+| classList | DOM.classList 常用方法 add remove | 操作 dom 类名
+| sibling | DOM.sibling | 前一个元素
+| mouse事件 | mouseEvent.clinetX[, screenX, pageX] | 单点直接获取属性值
+| touch事件 | touchEvent.touches[0].clinetX[, screenx, pageX] | 多点触控导致在数组中获取
 
 
 
